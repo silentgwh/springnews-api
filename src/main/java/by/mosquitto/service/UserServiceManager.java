@@ -2,7 +2,9 @@ package by.mosquitto.service;
 
 import by.mosquitto.dto.UserDto;
 import by.mosquitto.entity.User;
+import by.mosquitto.mapper.UserMapper;
 import by.mosquitto.repository.UserRepository;
+import by.mosquitto.service.contract.UserService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -10,6 +12,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
+
+import static by.mosquitto.mapper.UserMapper.toDto;
+import static by.mosquitto.mapper.UserMapper.toEntity;
 
 @Service
 @RequiredArgsConstructor
@@ -22,22 +28,22 @@ public class UserServiceManager implements UserService {
     public UserDto getById(Long id) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("User not found with id: " + id));
-        return mapToDto(user);
+        return toDto(user);
     }
 
     @Override
     public List<UserDto> getAll() {
         return userRepository.findAll().stream()
-                .map(this::mapToDto)
-                .toList();
+                .map(UserMapper::toDto)
+                .collect(Collectors.toList());
     }
 
     @Override
     public UserDto create(UserDto userDto) {
-        User user = mapToEntity(userDto);
+        User user = toEntity(userDto);
         user.setCreationDate(LocalDateTime.now());
         User saved = userRepository.save(user);
-        return mapToDto(saved);
+        return toDto(saved);
     }
 
     @Override
@@ -52,7 +58,7 @@ public class UserServiceManager implements UserService {
         existing.setParentName(userDto.getParentName());
         existing.setLastEditDate(LocalDateTime.now());
 
-        return mapToDto(userRepository.save(existing));
+        return toDto(userRepository.save(existing));
     }
 
     @Override
@@ -61,31 +67,5 @@ public class UserServiceManager implements UserService {
             throw new EntityNotFoundException("User not found with id: " + id);
         }
         userRepository.deleteById(id);
-    }
-
-    private User mapToEntity(UserDto dto) {
-        return User.builder()
-                .id(dto.getId())
-                .username(dto.getUsername())
-                .password(dto.getPassword())
-                .name(dto.getName())
-                .surname(dto.getSurname())
-                .parentName(dto.getParentName())
-                .creationDate(dto.getCreationDate())
-                .lastEditDate(dto.getLastEditDate())
-                .build();
-    }
-
-    private UserDto mapToDto(User user) {
-        return UserDto.builder()
-                .id(user.getId())
-                .username(user.getUsername())
-                .password(user.getPassword())
-                .name(user.getName())
-                .surname(user.getSurname())
-                .parentName(user.getParentName())
-                .creationDate(user.getCreationDate())
-                .lastEditDate(user.getLastEditDate())
-                .build();
     }
 }

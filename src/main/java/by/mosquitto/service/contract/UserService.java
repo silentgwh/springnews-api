@@ -1,4 +1,4 @@
-package by.mosquitto.service;
+package by.mosquitto.service.contract;
 
 import by.mosquitto.dto.UserDto;
 

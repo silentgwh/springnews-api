@@ -4,9 +4,11 @@ import by.mosquitto.dto.CommentDto;
 import by.mosquitto.entity.Comment;
 import by.mosquitto.entity.News;
 import by.mosquitto.entity.User;
+import by.mosquitto.mapper.CommentMapper;
 import by.mosquitto.repository.CommentRepository;
 import by.mosquitto.repository.NewsRepository;
 import by.mosquitto.repository.UserRepository;
+import by.mosquitto.service.contract.CommentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,6 +17,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static by.mosquitto.mapper.CommentMapper.toDto;
+
 @Service
 @RequiredArgsConstructor
 public class CommentServiceManager implements CommentService {
@@ -22,6 +26,13 @@ public class CommentServiceManager implements CommentService {
     private final CommentRepository commentRepository;
     private final NewsRepository newsRepository;
     private final UserRepository userRepository;
+
+    @Override
+    public List<CommentDto> getAllComments() {
+        return commentRepository.findAll().stream()
+                .map(CommentMapper::toDto)
+                .collect(Collectors.toList());
+    }
 
     @Override
     @Transactional
@@ -52,7 +63,7 @@ public class CommentServiceManager implements CommentService {
     @Override
     public List<CommentDto> getCommentsByNews(Long newsId) {
         return commentRepository.findByNewsId(newsId).stream()
-                .map(this::toDto)
+                .map(CommentMapper::toDto)
                 .collect(Collectors.toList());
     }
 
@@ -75,16 +86,5 @@ public class CommentServiceManager implements CommentService {
             throw new RuntimeException("Comment not found: " + id);
         }
         commentRepository.deleteById(id);
-    }
-
-    private CommentDto toDto(Comment comment) {
-        return CommentDto.builder()
-                .id(comment.getId())
-                .text(comment.getText())
-                .creationDate(comment.getCreationDate())
-                .lastEditDate(comment.getLastEditDate())
-                .newsId(comment.getNews().getId())
-                .userId(comment.getCreatedByUser().getId())
-                .build();
     }
 }

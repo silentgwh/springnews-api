@@ -3,8 +3,10 @@ package by.mosquitto.service;
 import by.mosquitto.dto.NewsDto;
 import by.mosquitto.entity.News;
 import by.mosquitto.entity.User;
+import by.mosquitto.mapper.NewsMapper;
 import by.mosquitto.repository.NewsRepository;
 import by.mosquitto.repository.UserRepository;
+import by.mosquitto.service.contract.NewsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,7 +15,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
-
+import static by.mosquitto.mapper.NewsMapper.toDto;
 
 @Service
 @RequiredArgsConstructor
@@ -48,7 +50,7 @@ public class NewsServiceManager implements NewsService {
     @Override
     public List<NewsDto> getAllNews() {
         return newsRepository.findAll().stream()
-                .map(this::toDto)
+                .map(NewsMapper::toDto)
                 .collect(Collectors.toList());
     }
 
@@ -78,17 +80,5 @@ public class NewsServiceManager implements NewsService {
             throw new RuntimeException("News not found: " + id);
         }
         newsRepository.deleteById(id);
-    }
-
-    private NewsDto toDto(News news) {
-        return NewsDto.builder()
-                .id(news.getId())
-                .title(news.getTitle())
-                .text(news.getText())
-                .creationDate(news.getCreationDate())
-                .lastEditDate(news.getLastEditDate())
-                .insertedById(news.getCreatedByUser().getId())
-                .updatedById(news.getUpdatedByUser() != null ? news.getUpdatedByUser().getId() : null)
-                .build();
     }
 }

@@ -1,20 +1,23 @@
 package by.mosquitto.api;
 
 import by.mosquitto.dto.NewsDto;
-import by.mosquitto.service.NewsService;
+import by.mosquitto.service.contract.NewsService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/news")
 public class NewsController {
 
     private final NewsService newsService;
 
-    public NewsController(NewsService newsService) {
-        this.newsService = newsService;
+    @GetMapping
+    public ResponseEntity<List<NewsDto>> getAllNews() {
+        return ResponseEntity.ok(newsService.getAllNews());
     }
 
     @PostMapping
@@ -25,11 +28,6 @@ public class NewsController {
     @GetMapping("/{id}")
     public ResponseEntity<NewsDto> get(@PathVariable Long id) {
         return ResponseEntity.ok(newsService.getNews(id));
-    }
-
-    @GetMapping
-    public ResponseEntity<List<NewsDto>> getAll() {
-        return ResponseEntity.ok(newsService.getAllNews());
     }
 
     @PutMapping("/{id}")

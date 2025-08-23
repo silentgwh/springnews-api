@@ -1,4 +1,4 @@
-package by.mosquitto.service;
+package by.mosquitto.service.contract;
 
 import by.mosquitto.dto.CommentDto;
 
@@ -6,6 +6,7 @@ import java.util.List;
 
 public interface CommentService {
 
+    List<CommentDto> getAllComments();
     CommentDto createComment(CommentDto dto);
     CommentDto getComment(Long id);
     List<CommentDto> getCommentsByNews(Long newsId);

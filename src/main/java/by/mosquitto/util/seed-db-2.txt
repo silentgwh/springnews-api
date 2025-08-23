@@ -1,0 +1,72 @@
+-- Таблица пользователей
+CREATE TABLE app_user (
+    id BIGSERIAL PRIMARY KEY,
+    username VARCHAR(255) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    name VARCHAR(50) NOT NULL,
+    surname VARCHAR(50) NOT NULL,
+    parent_name VARCHAR(50) NOT NULL,
+    creation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    last_edit_date TIMESTAMP NOT NULL
+);
+
+-- Таблица новостей
+CREATE TABLE news (
+    id BIGSERIAL PRIMARY KEY,
+    title VARCHAR(150) NOT NULL,
+    text TEXT NOT NULL CHECK (char_length(text) <= 2000),
+    creation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    last_edit_date TIMESTAMP NOT NULL,
+    created_by_user BIGINT NOT NULL REFERENCES app_user(id) ON DELETE CASCADE,
+    updated_by_user BIGINT NOT NULL REFERENCES app_user(id) ON DELETE SET NULL
+);
+
+-- Таблица комментариев
+CREATE TABLE comments (
+    id BIGSERIAL PRIMARY KEY,
+    text VARCHAR(300) NOT NULL,
+    creation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    last_edit_date TIMESTAMP NOT NULL,
+    created_by_user BIGINT NOT NULL REFERENCES app_user(id) ON DELETE CASCADE,
+    news_id BIGINT NOT NULL REFERENCES news(id) ON DELETE CASCADE
+);
+
+
+-- Вставка пользователей
+INSERT INTO app_user (username, password, name, surname, parent_name, creation_date, last_edit_date)
+VALUES
+  ('alice', 'pass123', 'Alice', 'Smith', 'Marie', NOW() - INTERVAL '15 days', NOW() - INTERVAL '14 days'),
+  ('bob',   'pass123', 'Bob',   'Johnson', 'Edward', NOW() - INTERVAL '14 days', NOW() - INTERVAL '13 days'),
+  ('carol', 'pass123', 'Carol', 'Williams', 'Helen', NOW() - INTERVAL '13 days', NOW() - INTERVAL '12 days'),
+  ('dave',  'pass123', 'Dave',  'Brown', 'George', NOW() - INTERVAL '12 days', NOW() - INTERVAL '11 days');
+
+-- Вставка новостей
+INSERT INTO news (title, text, created_by_user, updated_by_user, creation_date, last_edit_date)
+VALUES
+  ('Новость 1', 'Текст новости 1', 1, 2, NOW() - INTERVAL '10 days', NOW() - INTERVAL '9 days'),
+  ('Новость 2', 'Текст новости 2', 2, 3, NOW() - INTERVAL '9 days', NOW() - INTERVAL '8 days'),
+  ('Новость 3', 'Текст новости 3', 3, 4, NOW() - INTERVAL '8 days', NOW() - INTERVAL '7 days'),
+  ('Новость 4', 'Текст новости 4', 1, 3, NOW() - INTERVAL '7 days', NOW() - INTERVAL '6 days'),
+  ('Новость 5', 'Текст новости 5', 2, 1, NOW() - INTERVAL '6 days', NOW() - INTERVAL '5 days');
+
+-- Вставка комментариев
+INSERT INTO comments (text, created_by_user, news_id, creation_date, last_edit_date)
+VALUES
+  ('Комментарий 1 к новости 1', 2, 1, NOW() - INTERVAL '9 days', NOW() - INTERVAL '8 days'),
+  ('Комментарий 2 к новости 1', 3, 1, NOW() - INTERVAL '8 days', NOW() - INTERVAL '7 days'),
+  ('Комментарий 3 к новости 1', 4, 1, NOW() - INTERVAL '7 days', NOW() - INTERVAL '6 days'),
+
+  ('Комментарий 1 к новости 2', 1, 2, NOW() - INTERVAL '8 days', NOW() - INTERVAL '7 days'),
+  ('Комментарий 2 к новости 2', 3, 2, NOW() - INTERVAL '7 days', NOW() - INTERVAL '6 days'),
+
+  ('Комментарий 1 к новости 3', 1, 3, NOW() - INTERVAL '6 days', NOW() - INTERVAL '5 days'),
+  ('Комментарий 2 к новости 3', 2, 3, NOW() - INTERVAL '5 days', NOW() - INTERVAL '4 days'),
+
+  ('Комментарий 1 к новости 4', 3, 4, NOW() - INTERVAL '4 days', NOW() - INTERVAL '3 days'),
+  ('Комментарий 2 к новости 4', 4, 4, NOW() - INTERVAL '3 days', NOW() - INTERVAL '2 days'),
+
+  ('Комментарий 1 к новости 5', 1, 5, NOW() - INTERVAL '2 days', NOW() - INTERVAL '1 day'),
+  ('Комментарий 2 к новости 5', 2, 5, NOW() - INTERVAL '1 day', NOW());
+
+COMMIT;
+

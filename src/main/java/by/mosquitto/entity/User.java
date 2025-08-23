@@ -16,28 +16,27 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private Long id;
 
-    @Column(name = "username", length = 40, nullable = false, unique = true)
+    @Column(length = 255, nullable = false, unique = true)
     private String username;
 
-    @Column(name = "password", length = 80, nullable = false)
+    @Column(length = 255, nullable = false)
     private String password;
 
-    @Column(name = "name", length = 20, nullable = false)
+    @Column(length = 50, nullable = false)
     private String name;
 
-    @Column(name = "surname", length = 20, nullable = false)
+    @Column(length = 50, nullable = false)
     private String surname;
 
-    @Column(name = "parentname", length = 20)
+    @Column(name = "parent_name", length = 50, nullable = false)
     private String parentName;
 
-    @Column(name = "creationdate", nullable = true)
+    @Column(name = "creation_date")
     private LocalDateTime creationDate;
 
-    @Column(name = "lasteditdate", nullable = true)
+    @Column(name = "last_edit_date", nullable = false)
     private LocalDateTime lastEditDate;
 
     @OneToMany(mappedBy = "createdByUser", cascade = CascadeType.ALL, orphanRemoval = true)

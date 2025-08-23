@@ -20,14 +20,14 @@ public class Comment {
     @Column(length = 300, nullable = false)
     private String text;
 
-    @Column(nullable = true)
+    @Column(name = "creation_date")
     private LocalDateTime creationDate;
 
-    @Column(nullable = true)
+    @Column(name = "last_edit_date", nullable = false)
     private LocalDateTime lastEditDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "created_by_user", nullable = true)
+    @JoinColumn(name = "created_by_user", nullable = false)
     private User createdByUser;
 
     @ManyToOne(fetch = FetchType.LAZY)

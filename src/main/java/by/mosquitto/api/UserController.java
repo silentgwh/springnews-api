@@ -1,7 +1,7 @@
 package by.mosquitto.api;
 
 import by.mosquitto.dto.UserDto;
-import by.mosquitto.service.UserService;
+import by.mosquitto.service.contract.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

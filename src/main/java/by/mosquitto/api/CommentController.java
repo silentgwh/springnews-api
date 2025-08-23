@@ -1,7 +1,7 @@
 package by.mosquitto.api;
 
 import by.mosquitto.dto.CommentDto;
-import by.mosquitto.service.CommentService;
+import by.mosquitto.service.contract.CommentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +15,12 @@ import java.util.List;
 public class CommentController {
 
     private final CommentService commentService;
+
+    @GetMapping
+    public ResponseEntity<List<CommentDto>> getAllComments() {
+        return ResponseEntity.ok(commentService.getAllComments());
+    }
+
 
     @GetMapping("/{id}")
     public ResponseEntity<CommentDto> getComment(@PathVariable Long id) {
