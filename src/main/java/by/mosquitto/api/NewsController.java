@@ -1,15 +1,20 @@
 package by.mosquitto.api;
 
 import by.mosquitto.dto.NewsDto;
+import by.mosquitto.dto.NewsWithCommentsPagedDto;
 import by.mosquitto.service.contract.NewsService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RequiredArgsConstructor
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/api/news")
 public class NewsController {
 
@@ -20,14 +25,48 @@ public class NewsController {
         return ResponseEntity.ok(newsService.getAllNews());
     }
 
-    @PostMapping
-    public ResponseEntity<NewsDto> create(@RequestBody NewsDto dto) {
-        return ResponseEntity.ok(newsService.createNews(dto));
+    @GetMapping("/paged")
+    public ResponseEntity<Page<NewsDto>> getNewsPaged(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(defaultValue = "creationDate") String sortBy,
+            @RequestParam(defaultValue = "desc") String direction
+    ) {
+        Sort sort = direction.equalsIgnoreCase("desc") ?
+                Sort.by(sortBy).descending() : Sort.by(sortBy).ascending();
+
+        Pageable pageable = PageRequest.of(page, size, sort);
+        return ResponseEntity.ok(newsService.getNewsPaged(pageable));
+    }
+
+    @GetMapping("/{id}/with-comments-paged")
+    public ResponseEntity<NewsWithCommentsPagedDto> getNewsWithCommentsPaged(
+            @PathVariable Long id,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "5") int size,
+            @RequestParam(defaultValue = "creationDate") String sortBy,
+            @RequestParam(defaultValue = "desc") String direction
+    ) {
+        Sort sort = direction.equalsIgnoreCase("desc") ?
+                Sort.by(sortBy).descending() : Sort.by(sortBy).ascending();
+
+        Pageable pageable = PageRequest.of(page, size, sort);
+        return ResponseEntity.ok(newsService.getNewsWithCommentsPaged(id, pageable));
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<NewsDto>> search(@RequestParam String query) {
+        return ResponseEntity.ok(newsService.search(query));
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<NewsDto> get(@PathVariable Long id) {
-        return ResponseEntity.ok(newsService.getNews(id));
+        return ResponseEntity.ok(newsService.getNewsById(id));
+    }
+
+    @PostMapping
+    public ResponseEntity<NewsDto> create(@RequestBody NewsDto dto) {
+        return ResponseEntity.status(201).body(newsService.createNews(dto));
     }
 
     @PutMapping("/{id}")

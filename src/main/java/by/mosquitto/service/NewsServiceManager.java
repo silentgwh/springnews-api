@@ -1,19 +1,24 @@
 package by.mosquitto.service;
 
+import by.mosquitto.dto.CommentDto;
 import by.mosquitto.dto.NewsDto;
+import by.mosquitto.dto.NewsWithCommentsPagedDto;
 import by.mosquitto.entity.News;
 import by.mosquitto.entity.User;
+import by.mosquitto.mapper.CommentMapper;
 import by.mosquitto.mapper.NewsMapper;
+import by.mosquitto.repository.CommentRepository;
 import by.mosquitto.repository.NewsRepository;
 import by.mosquitto.repository.UserRepository;
 import by.mosquitto.service.contract.NewsService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static by.mosquitto.mapper.NewsMapper.toDto;
 
@@ -23,6 +28,54 @@ public class NewsServiceManager implements NewsService {
 
     private final NewsRepository newsRepository;
     private final UserRepository userRepository;
+    private final CommentRepository commentRepository;
+
+    @Override
+    public List<NewsDto> getAllNews() {
+        return newsRepository.findAll().stream()
+                .map(NewsMapper::toDto)
+                .toList();
+    }
+
+    @Override
+    public Page<NewsDto> getNewsPaged(Pageable pageable) {
+        return newsRepository.findAll(pageable)
+                .map(NewsMapper::toDto);
+    }
+
+    @Override
+    public NewsWithCommentsPagedDto getNewsWithCommentsPaged(Long newsId, Pageable pageable) {
+        News news = newsRepository.findById(newsId)
+                .orElseThrow(() -> new RuntimeException("News not found: " + newsId));
+
+        Page<CommentDto> comments = commentRepository.findByNewsId(newsId, pageable)
+                .map(CommentMapper::toDto);
+
+        return NewsWithCommentsPagedDto.builder()
+                .id(news.getId())
+                .title(news.getTitle())
+                .text(news.getText())
+                .creationDate(news.getCreationDate())
+                .lastEditDate(news.getLastEditDate())
+                .insertedById(news.getCreatedByUser().getId())
+                .updatedById(news.getUpdatedByUser() != null ? news.getUpdatedByUser().getId() : null)
+                .comments(comments)
+                .build();
+    }
+
+    @Override
+    public List<NewsDto> search(String query) {
+        return newsRepository.searchByTitleOrText(query).stream()
+                .map(NewsMapper::toDto)
+                .toList();
+    }
+
+    @Override
+    public NewsDto getNewsById(Long id) {
+        News news = newsRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("News not found: " + id));
+        return toDto(news);
+    }
 
     @Override
     @Transactional
@@ -38,20 +91,6 @@ public class NewsServiceManager implements NewsService {
                 .build();
 
         return toDto(newsRepository.save(news));
-    }
-
-    @Override
-    public NewsDto getNews(Long id) {
-        News news = newsRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("News not found: " + id));
-        return toDto(news);
-    }
-
-    @Override
-    public List<NewsDto> getAllNews() {
-        return newsRepository.findAll().stream()
-                .map(NewsMapper::toDto)
-                .collect(Collectors.toList());
     }
 
     @Override
