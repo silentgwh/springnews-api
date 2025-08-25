@@ -5,6 +5,8 @@ import by.mosquitto.dto.NewsDto;
 import by.mosquitto.dto.NewsWithCommentsPagedDto;
 import by.mosquitto.entity.News;
 import by.mosquitto.entity.User;
+import by.mosquitto.exception.NewsNotFoundException;
+import by.mosquitto.exception.UserNotFoundException;
 import by.mosquitto.mapper.CommentMapper;
 import by.mosquitto.mapper.NewsMapper;
 import by.mosquitto.repository.CommentRepository;
@@ -19,8 +21,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
-
-import static by.mosquitto.mapper.NewsMapper.toDto;
 
 @Service
 @RequiredArgsConstructor
@@ -46,7 +46,7 @@ public class NewsServiceManager implements NewsService {
     @Override
     public NewsWithCommentsPagedDto getNewsWithCommentsPaged(Long newsId, Pageable pageable) {
         News news = newsRepository.findById(newsId)
-                .orElseThrow(() -> new RuntimeException("News not found: " + newsId));
+                .orElseThrow(() -> new NewsNotFoundException(newsId));
 
         Page<CommentDto> comments = commentRepository.findByNewsId(newsId, pageable)
                 .map(CommentMapper::toDto);
@@ -73,15 +73,15 @@ public class NewsServiceManager implements NewsService {
     @Override
     public NewsDto getNewsById(Long id) {
         News news = newsRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("News not found: " + id));
-        return toDto(news);
+                .orElseThrow(() -> new NewsNotFoundException(id));
+        return NewsMapper.toDto(news);
     }
 
     @Override
     @Transactional
     public NewsDto createNews(NewsDto dto) {
         User createdByUser = userRepository.findById(dto.getInsertedById())
-                .orElseThrow(() -> new RuntimeException("User not found: " + dto.getInsertedById()));
+                .orElseThrow(() -> new UserNotFoundException(dto.getInsertedById()));
 
         News news = News.builder()
                 .title(dto.getTitle())
@@ -90,14 +90,14 @@ public class NewsServiceManager implements NewsService {
                 .createdByUser(createdByUser)
                 .build();
 
-        return toDto(newsRepository.save(news));
+        return NewsMapper.toDto(newsRepository.save(news));
     }
 
     @Override
     @Transactional
     public NewsDto updateNews(Long id, NewsDto dto) {
         News news = newsRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("News not found: " + id));
+                .orElseThrow(() -> new NewsNotFoundException(id));
 
         news.setTitle(dto.getTitle());
         news.setText(dto.getText());
@@ -105,18 +105,18 @@ public class NewsServiceManager implements NewsService {
 
         if (dto.getUpdatedById() != null) {
             User updatedByUser = userRepository.findById(dto.getUpdatedById())
-                    .orElseThrow(() -> new RuntimeException("User not found: " + dto.getUpdatedById()));
+                    .orElseThrow(() -> new UserNotFoundException(dto.getUpdatedById()));
             news.setUpdatedByUser(updatedByUser);
         }
 
-        return toDto(newsRepository.save(news));
+        return NewsMapper.toDto(newsRepository.save(news));
     }
 
     @Override
     @Transactional
     public void deleteNews(Long id) {
         if (!newsRepository.existsById(id)) {
-            throw new RuntimeException("News not found: " + id);
+            throw new NewsNotFoundException(id);
         }
         newsRepository.deleteById(id);
     }
