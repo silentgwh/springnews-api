@@ -19,3 +19,14 @@ spring:
 
 server:
   port: 8080
+
+logging:
+  level:
+    root: INFO
+    com.springnews.api: DEBUG
+    com.springnews.service: DEBUG
+    com.springnews.repository: WARN
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+  file:
+    name: logs/springnews.log

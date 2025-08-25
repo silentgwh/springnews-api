@@ -14,6 +14,7 @@ import by.mosquitto.repository.NewsRepository;
 import by.mosquitto.repository.UserRepository;
 import by.mosquitto.service.contract.NewsService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -22,6 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class NewsServiceManager implements NewsService {
@@ -32,6 +34,7 @@ public class NewsServiceManager implements NewsService {
 
     @Override
     public List<NewsDto> getAllNews() {
+        log.debug("Fetching all news");
         return newsRepository.findAll().stream()
                 .map(NewsMapper::toDto)
                 .toList();
@@ -39,14 +42,20 @@ public class NewsServiceManager implements NewsService {
 
     @Override
     public Page<NewsDto> getNewsPaged(Pageable pageable) {
+        log.debug("Fetching paged news: page={}, size={}", pageable.getPageNumber(), pageable.getPageSize());
         return newsRepository.findAll(pageable)
                 .map(NewsMapper::toDto);
     }
 
     @Override
     public NewsWithCommentsPagedDto getNewsWithCommentsPaged(Long newsId, Pageable pageable) {
+        log.info("Fetching news with comments: newsId={}, page={}, size={}", newsId, pageable.getPageNumber(), pageable.getPageSize());
+
         News news = newsRepository.findById(newsId)
-                .orElseThrow(() -> new NewsNotFoundException(newsId));
+                .orElseThrow(() -> {
+                    log.warn("News not found: id={}", newsId);
+                    return new NewsNotFoundException(newsId);
+                });
 
         Page<CommentDto> comments = commentRepository.findByNewsId(newsId, pageable)
                 .map(CommentMapper::toDto);
@@ -65,6 +74,7 @@ public class NewsServiceManager implements NewsService {
 
     @Override
     public List<NewsDto> search(String query) {
+        log.info("Searching news by query='{}'", query);
         return newsRepository.searchByTitleOrText(query).stream()
                 .map(NewsMapper::toDto)
                 .toList();
@@ -72,16 +82,26 @@ public class NewsServiceManager implements NewsService {
 
     @Override
     public NewsDto getNewsById(Long id) {
+        log.info("Fetching news by id={}", id);
         News news = newsRepository.findById(id)
-                .orElseThrow(() -> new NewsNotFoundException(id));
+                .orElseThrow(() -> {
+                    log.warn("News not found: id={}", id);
+                    return new NewsNotFoundException(id);
+                });
         return NewsMapper.toDto(news);
     }
 
     @Override
     @Transactional
     public NewsDto createNews(NewsDto dto) {
+        log.info("Creating news by userId={}", dto.getInsertedById());
+        log.debug("Payload: {}", dto);
+
         User createdByUser = userRepository.findById(dto.getInsertedById())
-                .orElseThrow(() -> new UserNotFoundException(dto.getInsertedById()));
+                .orElseThrow(() -> {
+                    log.warn("User not found: id={}", dto.getInsertedById());
+                    return new UserNotFoundException(dto.getInsertedById());
+                });
 
         News news = News.builder()
                 .title(dto.getTitle())
@@ -90,14 +110,22 @@ public class NewsServiceManager implements NewsService {
                 .createdByUser(createdByUser)
                 .build();
 
-        return NewsMapper.toDto(newsRepository.save(news));
+        News saved = newsRepository.save(news);
+        log.info("News created: id={}", saved.getId());
+        return NewsMapper.toDto(saved);
     }
 
     @Override
     @Transactional
     public NewsDto updateNews(Long id, NewsDto dto) {
+        log.info("Updating news id={}", id);
+        log.debug("Payload: {}", dto);
+
         News news = newsRepository.findById(id)
-                .orElseThrow(() -> new NewsNotFoundException(id));
+                .orElseThrow(() -> {
+                    log.warn("News not found for update: id={}", id);
+                    return new NewsNotFoundException(id);
+                });
 
         news.setTitle(dto.getTitle());
         news.setText(dto.getText());
@@ -105,19 +133,27 @@ public class NewsServiceManager implements NewsService {
 
         if (dto.getUpdatedById() != null) {
             User updatedByUser = userRepository.findById(dto.getUpdatedById())
-                    .orElseThrow(() -> new UserNotFoundException(dto.getUpdatedById()));
+                    .orElseThrow(() -> {
+                        log.warn("User not found for update: id={}", dto.getUpdatedById());
+                        return new UserNotFoundException(dto.getUpdatedById());
+                    });
             news.setUpdatedByUser(updatedByUser);
         }
 
-        return NewsMapper.toDto(newsRepository.save(news));
+        News updated = newsRepository.save(news);
+        log.info("News updated: id={}", updated.getId());
+        return NewsMapper.toDto(updated);
     }
 
     @Override
     @Transactional
     public void deleteNews(Long id) {
+        log.info("Deleting news id={}", id);
         if (!newsRepository.existsById(id)) {
+            log.warn("News not found for deletion: id={}", id);
             throw new NewsNotFoundException(id);
         }
         newsRepository.deleteById(id);
+        log.info("News deleted: id={}", id);
     }
 }
