@@ -1,10 +1,4 @@
 spring:
-  profiles:
-    active: test  # prod
-
-  application:
-    name: springnews-api
-
   datasource:
     url: jdbc:postgresql://localhost:5433/springnews
     username: admin

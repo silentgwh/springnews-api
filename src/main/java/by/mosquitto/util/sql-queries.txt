@@ -1,4 +1,10 @@
+========================================================================================================================
+// Docker Postgres
 docker run --name springnews-postgres-db -e POSTGRES_DB=springnews -e POSTGRES_USER=admin -e POSTGRES_PASSWORD=admin -p 5433:5432 -d postgres:15
+
+// Docker Oracle
+docker run -d --name springnews-oracle-db -p 1521:1521 -e ORACLE_PASSWORD=test -e APP_USER=test -e APP_USER_PASSWORD=test gvenzl/oracle-xe:21-slim
+========================================================================================================================
 
 -- Очистка и удаление таблиц (если уже существуют)
 TRUNCATE TABLE
@@ -12,57 +18,3 @@ DROP TABLE IF EXISTS
     news,
     app_user
 CASCADE;
-
------------------------------------------------------------------------------------------------------
-
--- : Создание таблицы APP_USER
-CREATE TABLE app_user (
-    id BIGSERIAL PRIMARY KEY,
-    username VARCHAR(255) NOT NULL UNIQUE,
-    password VARCHAR(255) NOT NULL,
-
-    name VARCHAR(50) NOT NULL,
-    surname VARCHAR(50) NOT NULL,
-    parentName VARCHAR(50),
-
-    creationDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    lastEditDate TIMESTAMP
-);
-
--- 2: Создание таблицы NEWS
-CREATE TABLE news (
-    id BIGSERIAL PRIMARY KEY,
-
-    title VARCHAR(150) NOT NULL,
-    text TEXT NOT NULL CHECK (char_length(text) <= 2000),
-
-    creationDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    lastEditDate TIMESTAMP,
-
-    insertedById BIGINT REFERENCES app_user(id) ON DELETE CASCADE,
-    updatedById BIGINT REFERENCES app_user(id) ON DELETE SET NULL
-);
-
--- 3: Создание таблицы COMMENTS с внешними ключами как nullable
-CREATE TABLE comments (
-    id BIGSERIAL PRIMARY KEY,
-
-    text VARCHAR(300) NOT NULL,
-
-    creationDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    lastEditDate TIMESTAMP,
-
-    insertedById BIGINT REFERENCES app_user(id) ON DELETE CASCADE,
-    idNews BIGINT REFERENCES news(id) ON DELETE CASCADE
-);
-
--- Шаг 4: Заполнение внешних ключей вручную или через бизнес-логику
--- UPDATE comments SET insertedById = <valid_user_id> WHERE insertedById IS NULL;
--- UPDATE comments SET idNews = <valid_news_id> WHERE idNews IS NULL;
-
--- Шаг 5: Установка ограничений NOT NULL после заполнения
-ALTER TABLE comments ALTER COLUMN insertedById SET NOT NULL;
-ALTER TABLE comments ALTER COLUMN idNews SET NOT NULL;
-
--- Шаг 6: Установка ограничений NOT NULL на NEWS после заполнения
-ALTER TABLE news ALTER COLUMN insertedById SET NOT NULL;
