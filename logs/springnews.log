@@ -66,3 +66,184 @@ This generated password is for development use only. Your security configuration
 2025-08-27T00:35:17.921+03:00  INFO 19608 --- [springnews-api] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
 2025-08-27T00:35:17.923+03:00  INFO 19608 --- [springnews-api] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
 2025-08-27T00:35:17.938+03:00  INFO 19608 --- [springnews-api] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2025-08-27T02:54:33.881+03:00  INFO 10480 --- [springnews-api] [main] by.mosquitto.SpringnewsApiApplication    : Starting SpringnewsApiApplication using Java 21.0.4 with PID 10480 (D:\java\! My e-commerce projects\springnews-api\target\classes started by 37525 in D:\java\! My e-commerce projects\springnews-api)
+2025-08-27T02:54:33.883+03:00  INFO 10480 --- [springnews-api] [main] by.mosquitto.SpringnewsApiApplication    : The following 1 profile is active: "test"
+2025-08-27T02:54:34.835+03:00  INFO 10480 --- [springnews-api] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-08-27T02:54:34.916+03:00  INFO 10480 --- [springnews-api] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 70 ms. Found 3 JPA repository interfaces.
+2025-08-27T02:54:35.759+03:00  INFO 10480 --- [springnews-api] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2025-08-27T02:54:35.776+03:00  INFO 10480 --- [springnews-api] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-08-27T02:54:35.776+03:00  INFO 10480 --- [springnews-api] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.43]
+2025-08-27T02:54:35.845+03:00  INFO 10480 --- [springnews-api] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-08-27T02:54:35.846+03:00  INFO 10480 --- [springnews-api] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1916 ms
+2025-08-27T02:54:36.038+03:00  INFO 10480 --- [springnews-api] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-08-27T02:54:36.308+03:00  INFO 10480 --- [springnews-api] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@1ccc1026
+2025-08-27T02:54:36.309+03:00  INFO 10480 --- [springnews-api] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-08-27T02:54:36.543+03:00  INFO 10480 --- [springnews-api] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-08-27T02:54:36.634+03:00  INFO 10480 --- [springnews-api] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.22.Final
+2025-08-27T02:54:36.684+03:00  INFO 10480 --- [springnews-api] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-08-27T02:54:37.097+03:00  INFO 10480 --- [springnews-api] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-08-27T02:54:37.195+03:00  WARN 10480 --- [springnews-api] [main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-08-27T02:54:37.218+03:00  INFO 10480 --- [springnews-api] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 15.14
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-08-27T02:54:38.404+03:00  INFO 10480 --- [springnews-api] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-08-27T02:54:38.407+03:00  INFO 10480 --- [springnews-api] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-08-27T02:54:38.875+03:00  INFO 10480 --- [springnews-api] [main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-08-27T02:54:39.867+03:00  WARN 10480 --- [springnews-api] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-08-27T02:54:40.166+03:00  WARN 10480 --- [springnews-api] [main] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: 2762e4c5-4a68-45d4-928b-fcb815b3c8a1
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2025-08-27T02:54:40.175+03:00  INFO 10480 --- [springnews-api] [main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2025-08-27T02:54:40.744+03:00  INFO 10480 --- [springnews-api] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2025-08-27T02:54:40.753+03:00  INFO 10480 --- [springnews-api] [main] by.mosquitto.SpringnewsApiApplication    : Started SpringnewsApiApplication in 7.522 seconds (process running for 8.47)
+2025-08-27T02:54:45.916+03:00  INFO 10480 --- [springnews-api] [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-08-27T02:54:45.917+03:00  INFO 10480 --- [springnews-api] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-08-27T02:54:45.918+03:00  INFO 10480 --- [springnews-api] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2025-08-27T02:54:46.005+03:00  INFO 10480 --- [springnews-api] [http-nio-8080-exec-1] by.mosquitto.aop.LoggingAspect           : Incoming: NewsController.getNewsWithCommentsPaged(..) with args=[3, 0, 5, creationDate, desc]
+2025-08-27T02:54:46.005+03:00  INFO 10480 --- [springnews-api] [http-nio-8080-exec-1] by.mosquitto.api.NewsController          : GET /api/news/3/with-comments-paged — page=0, size=5, sortBy=creationDate, direction=desc
+2025-08-27T02:54:46.006+03:00  INFO 10480 --- [springnews-api] [http-nio-8080-exec-1] b.mosquitto.service.NewsServiceManager   : Fetching news with comments: newsId=3, page=0, size=5
+2025-08-27T02:54:46.243+03:00  INFO 10480 --- [springnews-api] [http-nio-8080-exec-1] by.mosquitto.aop.LoggingAspect           : Outgoing: NewsController.getNewsWithCommentsPaged(..) returned=<200 OK OK,NewsWithCommentsPagedDto(id=3, title=Новость 3, text=Текст новости 3, creationDate=2025-08-18T20:38:35.647188, lastEditDate=2025-08-19T20:38:35.647188, insertedById=3, updatedById=4, comments=Page 1 of 1 containing by.mosquitto.dto.CommentDto instances),[]> in 239ms
+2025-08-27T02:54:46.316+03:00  WARN 10480 --- [springnews-api] [http-nio-8080-exec-1] ration$PageModule$WarningLoggingModifier : Serializing PageImpl instances as-is is not supported, meaning that there is no guarantee about the stability of the resulting JSON structure!
+	For a stable JSON structure, please use Spring Data's PagedModel (globally via @EnableSpringDataWebSupport(pageSerializationMode = VIA_DTO))
+	or Spring HATEOAS and Spring Data's PagedResourcesAssembler as documented in https://docs.spring.io/spring-data/commons/reference/repositories/core-extensions.html#core.web.pageables.
+
+2025-08-27T02:54:49.888+03:00  INFO 10480 --- [springnews-api] [http-nio-8080-exec-3] by.mosquitto.aop.LoggingAspect           : Incoming: NewsController.getAllNews() with args=[]
+2025-08-27T02:54:49.889+03:00  INFO 10480 --- [springnews-api] [http-nio-8080-exec-3] by.mosquitto.api.NewsController          : GET /api/news — fetch all news
+2025-08-27T02:54:49.905+03:00  INFO 10480 --- [springnews-api] [http-nio-8080-exec-3] by.mosquitto.aop.LoggingAspect           : Outgoing: NewsController.getAllNews() returned=<200 OK OK,[NewsDto(id=1, title=Новость 1, text=Текст новости 1, creationDate=2025-08-16T20:38:35.636017, lastEditDate=2025-08-17T20:38:35.636017, insertedById=1, updatedById=2), NewsDto(id=2, title=Новость 2, text=Текст новости 2, creationDate=2025-08-17T20:38:35.642527, lastEditDate=2025-08-18T20:38:35.642527, insertedById=2, updatedById=3), NewsDto(id=3, title=Новость 3, text=Текст новости 3, creationDate=2025-08-18T20:38:35.647188, lastEditDate=2025-08-19T20:38:35.647188, insertedById=3, updatedById=4), NewsDto(id=4, title=Новость 4, text=Текст новости 4, creationDate=2025-08-19T20:38:35.652445, lastEditDate=2025-08-20T20:38:35.652445, insertedById=1, updatedById=3), NewsDto(id=5, title=Новость 5, text=Текст новости 5, creationDate=2025-08-20T20:38:35.657127, lastEditDate=2025-08-21T20:38:35.657127, insertedById=2, updatedById=1)],[]> in 17ms
+2025-08-27T02:54:52.827+03:00  INFO 10480 --- [springnews-api] [http-nio-8080-exec-4] by.mosquitto.aop.LoggingAspect           : Incoming: NewsController.getNewsPaged(..) with args=[0, 5, creationDate, desc]
+2025-08-27T02:54:52.828+03:00  INFO 10480 --- [springnews-api] [http-nio-8080-exec-4] by.mosquitto.api.NewsController          : GET /api/news/paged — page=0, size=5, sortBy=creationDate, direction=desc
+2025-08-27T02:54:52.847+03:00  INFO 10480 --- [springnews-api] [http-nio-8080-exec-4] by.mosquitto.aop.LoggingAspect           : Outgoing: NewsController.getNewsPaged(..) returned=<200 OK OK,Page 1 of 1 containing by.mosquitto.dto.NewsDto instances,[]> in 20ms
+2025-08-27T02:55:11.588+03:00  INFO 10480 --- [springnews-api] [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2025-08-27T02:55:11.595+03:00  INFO 10480 --- [springnews-api] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2025-08-27T02:55:11.599+03:00  INFO 10480 --- [springnews-api] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-08-27T02:55:11.601+03:00  INFO 10480 --- [springnews-api] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2025-08-27T02:55:11.607+03:00  INFO 10480 --- [springnews-api] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2025-08-27T02:57:05.228+03:00  INFO 19700 --- [springnews-api] [main] by.mosquitto.SpringnewsApiApplication    : Starting SpringnewsApiApplication using Java 21.0.4 with PID 19700 (D:\java\! My e-commerce projects\springnews-api\target\classes started by 37525 in D:\java\! My e-commerce projects\springnews-api)
+2025-08-27T02:57:05.230+03:00  INFO 19700 --- [springnews-api] [main] by.mosquitto.SpringnewsApiApplication    : The following 1 profile is active: "test"
+2025-08-27T02:57:06.110+03:00  INFO 19700 --- [springnews-api] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-08-27T02:57:06.185+03:00  INFO 19700 --- [springnews-api] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 65 ms. Found 3 JPA repository interfaces.
+2025-08-27T02:57:06.929+03:00  INFO 19700 --- [springnews-api] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2025-08-27T02:57:06.944+03:00  INFO 19700 --- [springnews-api] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-08-27T02:57:06.944+03:00  INFO 19700 --- [springnews-api] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.43]
+2025-08-27T02:57:07.011+03:00  INFO 19700 --- [springnews-api] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-08-27T02:57:07.011+03:00  INFO 19700 --- [springnews-api] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1739 ms
+2025-08-27T02:57:07.171+03:00  INFO 19700 --- [springnews-api] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-08-27T02:57:07.369+03:00  INFO 19700 --- [springnews-api] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@1ccc1026
+2025-08-27T02:57:07.371+03:00  INFO 19700 --- [springnews-api] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-08-27T02:57:07.518+03:00  INFO 19700 --- [springnews-api] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-08-27T02:57:07.577+03:00  INFO 19700 --- [springnews-api] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.22.Final
+2025-08-27T02:57:07.616+03:00  INFO 19700 --- [springnews-api] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-08-27T02:57:07.983+03:00  INFO 19700 --- [springnews-api] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-08-27T02:57:08.049+03:00  WARN 19700 --- [springnews-api] [main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-08-27T02:57:08.068+03:00  INFO 19700 --- [springnews-api] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 15.14
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-08-27T02:57:09.107+03:00  INFO 19700 --- [springnews-api] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-08-27T02:57:09.111+03:00  INFO 19700 --- [springnews-api] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-08-27T02:57:09.523+03:00  INFO 19700 --- [springnews-api] [main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-08-27T02:57:10.415+03:00  WARN 19700 --- [springnews-api] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-08-27T02:57:10.693+03:00  WARN 19700 --- [springnews-api] [main] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: 46f5ac5a-08cc-477f-9654-5a0f58549c97
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2025-08-27T02:57:10.701+03:00  INFO 19700 --- [springnews-api] [main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2025-08-27T02:57:11.204+03:00  INFO 19700 --- [springnews-api] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2025-08-27T02:57:11.210+03:00  INFO 19700 --- [springnews-api] [main] by.mosquitto.SpringnewsApiApplication    : Started SpringnewsApiApplication in 6.513 seconds (process running for 7.228)
+2025-08-27T02:57:20.597+03:00  INFO 19700 --- [springnews-api] [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2025-08-27T02:57:20.603+03:00  INFO 19700 --- [springnews-api] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2025-08-27T02:57:20.607+03:00  INFO 19700 --- [springnews-api] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-08-27T02:57:20.609+03:00  INFO 19700 --- [springnews-api] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2025-08-27T02:57:20.613+03:00  INFO 19700 --- [springnews-api] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2025-08-27T02:58:42.920+03:00  INFO 20948 --- [springnews-api] [main] b.m.SpringnewsApiApplicationTests        : Starting SpringnewsApiApplicationTests using Java 21.0.4 with PID 20948 (started by 37525 in D:\java\! My e-commerce projects\springnews-api)
+2025-08-27T02:58:42.923+03:00  INFO 20948 --- [springnews-api] [main] b.m.SpringnewsApiApplicationTests        : The following 1 profile is active: "test"
+2025-08-27T02:58:44.105+03:00  INFO 20948 --- [springnews-api] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-08-27T02:58:44.213+03:00  INFO 20948 --- [springnews-api] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 95 ms. Found 3 JPA repository interfaces.
+2025-08-27T02:58:45.198+03:00  INFO 20948 --- [springnews-api] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-08-27T02:58:45.604+03:00  INFO 20948 --- [springnews-api] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@7604198a
+2025-08-27T02:58:45.606+03:00  INFO 20948 --- [springnews-api] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-08-27T02:58:45.835+03:00  INFO 20948 --- [springnews-api] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-08-27T02:58:45.951+03:00  INFO 20948 --- [springnews-api] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.22.Final
+2025-08-27T02:58:46.020+03:00  INFO 20948 --- [springnews-api] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-08-27T02:58:46.588+03:00  INFO 20948 --- [springnews-api] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-08-27T02:58:46.686+03:00  WARN 20948 --- [springnews-api] [main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-08-27T02:58:46.715+03:00  INFO 20948 --- [springnews-api] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 15.14
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-08-27T02:58:47.995+03:00  INFO 20948 --- [springnews-api] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-08-27T02:58:48.000+03:00  INFO 20948 --- [springnews-api] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-08-27T02:58:48.791+03:00  INFO 20948 --- [springnews-api] [main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-08-27T02:58:49.932+03:00  WARN 20948 --- [springnews-api] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-08-27T02:58:50.389+03:00  WARN 20948 --- [springnews-api] [main] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: e34cd5fe-c9d3-4f8f-93a6-5e1bfee45ca8
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2025-08-27T02:58:50.404+03:00  INFO 20948 --- [springnews-api] [main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2025-08-27T02:58:51.162+03:00  INFO 20948 --- [springnews-api] [main] b.m.SpringnewsApiApplicationTests        : Started SpringnewsApiApplicationTests in 8.889 seconds (process running for 10.333)
+2025-08-27T02:58:51.721+03:00  INFO 20948 --- [springnews-api] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-08-27T02:58:51.723+03:00  INFO 20948 --- [springnews-api] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2025-08-27T02:58:51.728+03:00  INFO 20948 --- [springnews-api] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2025-08-27T02:59:11.931+03:00  INFO 8200 --- [springnews-api] [main] by.mosquitto.SpringnewsApiApplication    : Starting SpringnewsApiApplication using Java 21.0.4 with PID 8200 (D:\java\! My e-commerce projects\springnews-api\target\classes started by 37525 in D:\java\! My e-commerce projects\springnews-api)
+2025-08-27T02:59:11.934+03:00  INFO 8200 --- [springnews-api] [main] by.mosquitto.SpringnewsApiApplication    : The following 1 profile is active: "test"
+2025-08-27T02:59:12.848+03:00  INFO 8200 --- [springnews-api] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-08-27T02:59:12.923+03:00  INFO 8200 --- [springnews-api] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 65 ms. Found 3 JPA repository interfaces.
+2025-08-27T02:59:13.674+03:00  INFO 8200 --- [springnews-api] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2025-08-27T02:59:13.689+03:00  INFO 8200 --- [springnews-api] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-08-27T02:59:13.690+03:00  INFO 8200 --- [springnews-api] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.43]
+2025-08-27T02:59:13.767+03:00  INFO 8200 --- [springnews-api] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-08-27T02:59:13.768+03:00  INFO 8200 --- [springnews-api] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1792 ms
+2025-08-27T02:59:13.927+03:00  INFO 8200 --- [springnews-api] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-08-27T02:59:14.132+03:00  INFO 8200 --- [springnews-api] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@541d4d9f
+2025-08-27T02:59:14.135+03:00  INFO 8200 --- [springnews-api] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-08-27T02:59:14.293+03:00  INFO 8200 --- [springnews-api] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-08-27T02:59:14.361+03:00  INFO 8200 --- [springnews-api] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.22.Final
+2025-08-27T02:59:14.408+03:00  INFO 8200 --- [springnews-api] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-08-27T02:59:14.760+03:00  INFO 8200 --- [springnews-api] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-08-27T02:59:14.827+03:00  WARN 8200 --- [springnews-api] [main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-08-27T02:59:14.846+03:00  INFO 8200 --- [springnews-api] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 15.14
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-08-27T02:59:15.925+03:00  INFO 8200 --- [springnews-api] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-08-27T02:59:15.929+03:00  INFO 8200 --- [springnews-api] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-08-27T02:59:16.372+03:00  INFO 8200 --- [springnews-api] [main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-08-27T02:59:17.351+03:00  WARN 8200 --- [springnews-api] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-08-27T02:59:17.644+03:00  WARN 8200 --- [springnews-api] [main] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: dcc79129-00e1-4b25-bdf8-4c9170ffda03
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2025-08-27T02:59:17.653+03:00  INFO 8200 --- [springnews-api] [main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2025-08-27T02:59:18.203+03:00  INFO 8200 --- [springnews-api] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2025-08-27T02:59:18.212+03:00  INFO 8200 --- [springnews-api] [main] by.mosquitto.SpringnewsApiApplication    : Started SpringnewsApiApplication in 6.817 seconds (process running for 7.532)
+2025-08-27T02:59:54.749+03:00  INFO 8200 --- [springnews-api] [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2025-08-27T02:59:54.756+03:00  INFO 8200 --- [springnews-api] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2025-08-27T02:59:54.759+03:00  INFO 8200 --- [springnews-api] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-08-27T02:59:54.762+03:00  INFO 8200 --- [springnews-api] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2025-08-27T02:59:54.765+03:00  INFO 8200 --- [springnews-api] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.

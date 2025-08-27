@@ -14,6 +14,20 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
 
+/**
+ * Сервис управления пользователями.
+ *
+ * Реализует:
+ * - Получение пользователя по ID
+ * - Получение списка всех пользователей
+ * - Создание, обновление и удаление пользователя
+ *
+ * Особенности:
+ * - Обработка ошибок через кастомное исключение UserNotFoundException
+ * - Логирование: info — для действий, debug — для payload'ов, warn — при ошибках
+ * - Используется @Transactional на уровне класса для операций записи
+ * - Преобразование между сущностями и DTO через UserMapper
+ */
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -22,6 +36,13 @@ public class UserServiceManager implements UserService {
 
     private final UserRepository userRepository;
 
+    /**
+     * Получает пользователя по его идентификатору.
+     *
+     * @param id идентификатор пользователя
+     * @return DTO пользователя
+     * @throws UserNotFoundException если пользователь не найден
+     */
     @Override
     public UserDto getById(Long id) {
         log.info("Fetching user by id={}", id);
@@ -33,6 +54,11 @@ public class UserServiceManager implements UserService {
         return UserMapper.toDto(user);
     }
 
+    /**
+     * Получает список всех пользователей.
+     *
+     * @return список DTO пользователей
+     */
     @Override
     public List<UserDto> getAll() {
         log.debug("Fetching all users");
@@ -41,6 +67,12 @@ public class UserServiceManager implements UserService {
                 .toList();
     }
 
+    /**
+     * Создаёт нового пользователя.
+     *
+     * @param userDto DTO с данными пользователя
+     * @return созданный пользователь
+     */
     @Override
     public UserDto create(UserDto userDto) {
         log.info("Creating user with username='{}'", userDto.getUsername());
@@ -54,6 +86,14 @@ public class UserServiceManager implements UserService {
         return UserMapper.toDto(saved);
     }
 
+    /**
+     * Обновляет существующего пользователя.
+     *
+     * @param id идентификатор пользователя
+     * @param userDto DTO с обновлёнными данными
+     * @return обновлённый пользователь
+     * @throws UserNotFoundException если пользователь не найден
+     */
     @Override
     public UserDto update(Long id, UserDto userDto) {
         log.info("Updating user id={}", id);
@@ -77,6 +117,12 @@ public class UserServiceManager implements UserService {
         return UserMapper.toDto(updated);
     }
 
+    /**
+     * Удаляет пользователя по его идентификатору.
+     *
+     * @param id идентификатор пользователя
+     * @throws UserNotFoundException если пользователь не найден
+     */
     @Override
     public void delete(Long id) {
         log.info("Deleting user id={}", id);

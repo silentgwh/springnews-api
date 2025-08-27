@@ -20,6 +20,21 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
 
+/**
+ * Сервис управления комментариями.
+ *
+ * Реализует:
+ * - Получение всех комментариев
+ * - Получение комментариев по новости
+ * - Получение комментария по ID
+ * - Создание, обновление и удаление комментария
+ *
+ * Особенности:
+ * - Проверка существования News и User перед созданием
+ * - Обработка ошибок через кастомные исключения (CommentNotFoundException и др.)
+ * - Логирование: debug — для payload'ов, info — для действий, warn — при ошибках
+ * - Используется @Transactional для операций записи
+ */
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -29,6 +44,11 @@ public class CommentServiceManager implements CommentService {
     private final NewsRepository newsRepository;
     private final UserRepository userRepository;
 
+    /**
+     * Получает список всех комментариев.
+     *
+     * @return список DTO комментариев
+     */
     @Override
     public List<CommentDto> getAllComments() {
         log.debug("Fetching all comments");
@@ -37,6 +57,15 @@ public class CommentServiceManager implements CommentService {
                 .toList();
     }
 
+    /**
+     * Создаёт новый комментарий.
+     * Проверяет существование связанной новости и пользователя.
+     *
+     * @param dto DTO с данными комментария
+     * @return созданный комментарий
+     * @throws NewsNotFoundException если новость не найдена
+     * @throws UserNotFoundException если пользователь не найден
+     */
     @Override
     @Transactional
     public CommentDto createComment(CommentDto dto) {
@@ -67,6 +96,13 @@ public class CommentServiceManager implements CommentService {
         return CommentMapper.toDto(saved);
     }
 
+    /**
+     * Получает комментарий по его идентификатору.
+     *
+     * @param id идентификатор комментария
+     * @return DTO комментария
+     * @throws CommentNotFoundException если комментарий не найден
+     */
     @Override
     public CommentDto getComment(Long id) {
         log.info("Fetching comment by id={}", id);
@@ -78,6 +114,12 @@ public class CommentServiceManager implements CommentService {
         return CommentMapper.toDto(comment);
     }
 
+    /**
+     * Получает все комментарии, связанные с конкретной новостью.
+     *
+     * @param newsId идентификатор новости
+     * @return список DTO комментариев
+     */
     @Override
     public List<CommentDto> getCommentsByNews(Long newsId) {
         log.info("Fetching comments for newsId={}", newsId);
@@ -86,6 +128,14 @@ public class CommentServiceManager implements CommentService {
                 .toList();
     }
 
+    /**
+     * Обновляет существующий комментарий.
+     *
+     * @param id идентификатор комментария
+     * @param dto DTO с обновлёнными данными
+     * @return обновлённый комментарий
+     * @throws CommentNotFoundException если комментарий не найден
+     */
     @Override
     @Transactional
     public CommentDto updateComment(Long id, CommentDto dto) {
@@ -106,6 +156,12 @@ public class CommentServiceManager implements CommentService {
         return CommentMapper.toDto(updated);
     }
 
+    /**
+     * Удаляет комментарий по его идентификатору.
+     *
+     * @param id идентификатор комментария
+     * @throws CommentNotFoundException если комментарий не найден
+     */
     @Override
     @Transactional
     public void deleteComment(Long id) {

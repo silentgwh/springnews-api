@@ -23,6 +23,23 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
 
+/**
+ * Сервис управления новостями.
+ *
+ * Реализует:
+ * - Получение всех новостей (в том числе с пагинацией)
+ * - Поиск по заголовку и тексту
+ * - Получение новости по ID
+ * - Получение новости с постраничными комментариями
+ * - Создание, обновление и удаление новости
+ *
+ * Особенности:
+ * - Проверка существования пользователя при создании/обновлении
+ * - Обработка ошибок через кастомные исключения (NewsNotFoundException, UserNotFoundException)
+ * - Логирование: debug — для payload'ов, info — для действий, warn — при ошибках
+ * - Используется @Transactional для операций записи
+ * - Возврат DTO через мапперы, без утечек сущностей
+ */
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -32,6 +49,11 @@ public class NewsServiceManager implements NewsService {
     private final UserRepository userRepository;
     private final CommentRepository commentRepository;
 
+    /**
+     * Получает список всех новостей.
+     *
+     * @return список DTO новостей
+     */
     @Override
     public List<NewsDto> getAllNews() {
         log.debug("Fetching all news");
@@ -40,6 +62,12 @@ public class NewsServiceManager implements NewsService {
                 .toList();
     }
 
+    /**
+     * Получает новости с пагинацией.
+     *
+     * @param pageable параметры пагинации и сортировки
+     * @return страница DTO новостей
+     */
     @Override
     public Page<NewsDto> getNewsPaged(Pageable pageable) {
         log.debug("Fetching paged news: page={}, size={}", pageable.getPageNumber(), pageable.getPageSize());
@@ -47,6 +75,14 @@ public class NewsServiceManager implements NewsService {
                 .map(NewsMapper::toDto);
     }
 
+    /**
+     * Получает новость с постраничными комментариями.
+     *
+     * @param newsId идентификатор новости
+     * @param pageable параметры пагинации комментариев
+     * @return DTO новости с комментариями
+     * @throws NewsNotFoundException если новость не найдена
+     */
     @Override
     public NewsWithCommentsPagedDto getNewsWithCommentsPaged(Long newsId, Pageable pageable) {
         log.info("Fetching news with comments: newsId={}, page={}, size={}", newsId, pageable.getPageNumber(), pageable.getPageSize());
@@ -72,6 +108,12 @@ public class NewsServiceManager implements NewsService {
                 .build();
     }
 
+    /**
+     * Выполняет поиск новостей по заголовку или тексту.
+     *
+     * @param query поисковый запрос
+     * @return список подходящих DTO новостей
+     */
     @Override
     public List<NewsDto> search(String query) {
         log.info("Searching news by query='{}'", query);
@@ -80,6 +122,13 @@ public class NewsServiceManager implements NewsService {
                 .toList();
     }
 
+    /**
+     * Получает новость по её идентификатору.
+     *
+     * @param id идентификатор новости
+     * @return DTO новости
+     * @throws NewsNotFoundException если новость не найдена
+     */
     @Override
     public NewsDto getNewsById(Long id) {
         log.info("Fetching news by id={}", id);
@@ -91,6 +140,13 @@ public class NewsServiceManager implements NewsService {
         return NewsMapper.toDto(news);
     }
 
+    /**
+     * Создаёт новую новость.
+     *
+     * @param dto DTO с данными новости
+     * @return созданная новость
+     * @throws UserNotFoundException если автор не найден
+     */
     @Override
     @Transactional
     public NewsDto createNews(NewsDto dto) {
@@ -115,6 +171,15 @@ public class NewsServiceManager implements NewsService {
         return NewsMapper.toDto(saved);
     }
 
+    /**
+     * Обновляет существующую новость.
+     *
+     * @param id идентификатор новости
+     * @param dto DTO с обновлёнными данными
+     * @return обновлённая новость
+     * @throws NewsNotFoundException если новость не найдена
+     * @throws UserNotFoundException если указанный обновляющий пользователь не найден
+     */
     @Override
     @Transactional
     public NewsDto updateNews(Long id, NewsDto dto) {
@@ -145,6 +210,12 @@ public class NewsServiceManager implements NewsService {
         return NewsMapper.toDto(updated);
     }
 
+    /**
+     * Удаляет новость по её идентификатору.
+     *
+     * @param id идентификатор новости
+     * @throws NewsNotFoundException если новость не найдена
+     */
     @Override
     @Transactional
     public void deleteNews(Long id) {
